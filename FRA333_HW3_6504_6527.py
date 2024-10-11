@@ -32,12 +32,8 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
         # ระยะห่างระหว่าง p_e และ p joint ที่ i
         diffrent = p_e - P[:,i] #
 
-        print(rotation)
-        print(diffrent)
-
         # หา Linear velocity สำหรับ Jacobian
         J_v_i = np.cross(rotation,diffrent)
-
         J[0][i] = J_v_i[0]
         J[1][i] = J_v_i[1]
         J[2][i] = J_v_i[2]
@@ -47,15 +43,30 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
         J[4][i] = J_w_i[1]
         J[5][i] = J_w_i[2]
     return J
-    pass
 #==============================================================================================================#
 #=============================================<คำตอบข้อ 2>======================================================#
 #code here
 def checkSingularityHW3(q:list[float])->bool:
-    pass
+    # คำนวณ Jacobian
+    J = endEffectorJacobianHW3(q)
+    # ลดรูป Jacobian
+    J_reduce = J[:3,:3]
+    # คำนวณหาค่า det ของ Jacobian ที่ลดรูปแล้ว
+    check = np.linalg.det(J_reduce)
+    # กำหนดค่าและเงื่อนไขการเข้าสู่สภาวะ Sigularity
+    epsilon = 0.001
+    if check < epsilon:
+        return 1
+    else:
+        return 0
+
 #==============================================================================================================#
 #=============================================<คำตอบข้อ 3>======================================================#
 #code here
 def computeEffortHW3(q:list[float], w:list[float])->list[float]:
-    pass
+    # คำนวณ Jacobian
+    J = endEffectorJacobianHW3(q)
+    # คำนวณ effort ของแต่ละข้อต่อ
+    tau = np.dot(np.transpose(J),w)
+    return tau
 #==============================================================================================================#
