@@ -47,13 +47,14 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
 #=============================================<คำตอบข้อ 2>======================================================#
 #code here
 def checkSingularityHW3(q:list[float])->bool:
+    R,P,R_e,p_e = FKHW3(q)
     # คำนวณ Jacobian
     J = endEffectorJacobianHW3(q)
     # ลดรูป Jacobian
     J_reduce = J[:3,:3]
     # คำนวณหาค่า det ของ Jacobian ที่ลดรูปแล้ว
     check = np.linalg.det(J_reduce)
-    # กำหนดค่าและเงื่อนไขการเข้าสู่สภาวะ Sigularity
+    # กำหนดค่าและเงื่อนไขการเข้าสู่สภาวะ Singularity
     epsilon = 0.001
     if check < epsilon:
         return 1
