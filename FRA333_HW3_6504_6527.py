@@ -16,26 +16,38 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
     # คำนวณ ForwordKinematic เพื่อหา R, P, R_e,P_e
     R,P,R_e,p_e = FKHW3(q)
 
-    # สร้างตัวแปรขนาด 3x3 ของ Linear และ Angular Jacobian
-    J_v = np.empty((3,3))
-    J_w = np.empty((3,3)) 
+    # สร้างตัวแปรขนาด 6x3 ของ Linear Jacobian และ Angular Jacobian
+    J = np.empty((6,3)) 
 
-    #เอาจำนวณของ  Joint โดยเอาจาก q ที่ Input เข้ามา
+    #หาจำนวณของ  Joint โดยเอาจาก q ที่ Input เข้ามา
     num_joint = len(q)
     
     for i in range(num_joint):
         # คำนวณค่า rotation joint ที่ i
-        rotation = np.dot(R[:,:,i],[[0],[0],[1]]) # 
-
+        if i == 0:
+            rotation = np.dot(R[:,:,i],[[0],[0],[1]]) # คำนวณค่า rotation joint ที่ 1
+        else:
+            rotation = np.dot(R[:,:,i],[[np.sin(q[0])],[np.cos(q[0])],[0]]) # คำนวณค่า rotation joint ที่ 2 มีการแปลงเพราะแกนหมุนอยู่คนละทิศทางกัน
+        
         # ระยะห่างระหว่าง p_e และ p joint ที่ i
         diffrent = p_e - P[:,i] #
 
-        # หา Linear velocity สำหรับ Jacobian
-        J_transpose = np.cross(rotation,diffrent) #
+        print(rotation)
+        print(diffrent)
 
-    
-        pass
-    return rotation
+        # หา Linear velocity สำหรับ Jacobian
+        J_v_i = np.cross(rotation,diffrent)
+
+        J[0][i] = J_v_i[0]
+        J[1][i] = J_v_i[1]
+        J[2][i] = J_v_i[2]
+        # หา Angular velocity สำหรับ Jacobian
+        J_w_i = rotation
+        J[3][i] = J_w_i[0]
+        J[4][i] = J_w_i[1]
+        J[5][i] = J_w_i[2]
+    return J
+    pass
 #==============================================================================================================#
 #=============================================<คำตอบข้อ 2>======================================================#
 #code here
