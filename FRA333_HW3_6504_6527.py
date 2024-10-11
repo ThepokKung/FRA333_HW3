@@ -18,7 +18,7 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
 
     # สร้างตัวแปรขนาด 3x3 ของ Linear และ Angular Jacobian
     J_v = np.empty((3,3))
-    J_w = np.empty((3,3))
+    J_w = np.empty((3,3)) #Kuy
 
     #เอาจำนวณของ  Joint โดยเอาจาก q ที่ Input เข้ามา
     num_joint = len(q)
