@@ -27,8 +27,8 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
         if i == 0:
             rotation = np.dot(R[:,:,i],[[0],[0],[1]]) # คำนวณค่า rotation joint ที่ 1
         else:
-            rotation = np.dot(R[:,:,i],[[np.sin(q[0])],[np.cos(q[0])],[0]]) # คำนวณค่า rotation joint ที่ 2 มีการแปลงเพราะแกนหมุนอยู่คนละทิศทางกัน
-        
+            rotation = np.dot(R[:,:,i],[[np.sin(q[0])],[np.cos(q[0])],[0]]) # คำนวณค่า rotation joint ที่ 2,3 มีการแปลงเพราะแกนหมุนอยู่คนละทิศทางกัน
+        rotation = rotation.reshape(3)
         # ระยะห่างระหว่าง p_e และ p joint ที่ i
         diffrent = p_e - P[:,i] #
 
