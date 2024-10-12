@@ -27,16 +27,16 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
         if i == 0:
             rotation = [0,0,1] # คำนวณค่า rotation joint ที่ 1
         else:
-            rotation = [-np.sin(q[0]),np.cos(q[0]),0] # คำนวณค่า rotation joint ที่ 2,3 มีการแปลงเพราะแกนหมุนอยู่คนละทิศทางกัน
+            rotation = [-np.sin(q[0]),np.cos(q[0]),0] # คำนวณค่า rotation joint ที่ 2,3 มีการแปลงเพราะแกนหมุนอยู่คนละทิศทางกันกับเฟรมเริ่มต้น
         # ระยะห่างระหว่าง p_e และ p joint ที่ i
         diffrent = p_e - P[:,i] #
 
-        # หา Linear velocity สำหรับ Jacobian
+        # หา Linear velocity สำหรับ Jacobian แบบข้อต่อ Revolute
         J_v_i = np.cross(rotation,diffrent)
         J[0][i] = J_v_i[0]
         J[1][i] = J_v_i[1]
         J[2][i] = J_v_i[2]
-        # หา Angular velocity สำหรับ Jacobian
+        # หา Angular velocity สำหรับ Jacobian แบบข้อต่อ Revolute
         J_w_i = rotation
         J[3][i] = J_w_i[0]
         J[4][i] = J_w_i[1]
@@ -46,7 +46,6 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
 #=============================================<คำตอบข้อ 2>======================================================#
 #code here
 def checkSingularityHW3(q:list[float])->bool:
-    R,P,R_e,p_e = FKHW3(q)
     # คำนวณ Jacobian
     J = endEffectorJacobianHW3(q)
     # ลดรูป Jacobian
@@ -59,7 +58,6 @@ def checkSingularityHW3(q:list[float])->bool:
         return True
     else:
         return False
-
 #==============================================================================================================#
 #=============================================<คำตอบข้อ 3>======================================================#
 #code here
