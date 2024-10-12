@@ -2,7 +2,7 @@
 
 โปรเจคนี้จัดทำเพื่อประยุกต์ใช้ องค์ความรู้เกี่ยวกับการหาจลนศาสตร์เชิงอนุพันธ์ (Differential kinematics) ของหุ่นยนต์แขนกล 3 แกน (3-DOF Manipulator)
 
-![Robot](Image\pic1.png)
+![Robot](image\pic1.png)
 
 
 ## Table of Contents (TOC)
@@ -48,7 +48,7 @@ git clone https://github.com/ThepokKung/FRA333_HW3_6504_6527
 ```
 หรือสามารถโหลดจาก Website ได้เลยดังรูป
 
-![แสดงการเรียกใช้งาน-1](Image\2-1.png)
+![แสดงการเรียกใช้งาน-1](image\2-1.png)
 
 
 ## ข้อ 1 คำนวณ Jacobian
