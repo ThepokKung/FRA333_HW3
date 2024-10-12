@@ -1,6 +1,58 @@
+# FRA333 Homework Assignment 3: Static Force
 
-# ข้อ 1 คำนวณ Jacobian
-## ขั้นตอนการทำงาน
+โปรเจคนี้จัดทำเพื่อประยุกต์ใช้ องค์ความรู้เกี่ยวกับการหาจลนศาสตร์เชิงอนุพันธ์ (Differential kinematics) ของหุ่นยนต์แขนกล 3 แกน (3-DOF Manipulator)
+
+![Robot](Image\pic1.png)
+
+
+## Table of Contents (TOC)
+- [FRA333 Homework Assignment 3: Static Force](#fra333-homework-assignment-3-static-force)
+  - [Table of Contents (TOC)](#table-of-contents-toc)
+  - [การติดตั้ง](#การติดตั้ง)
+  - [การเรียกใช้งาน](#การเรียกใช้งาน)
+    - [ขั้นตอนการเรียกใช้งาน](#ขั้นตอนการเรียกใช้งาน)
+  - [ข้อ 1 คำนวณ Jacobian](#ข้อ-1-คำนวณ-jacobian)
+    - [ขั้นตอนการทำงาน](#ขั้นตอนการทำงาน)
+    - [ขั้นตอนการตรวจสอบ](#ขั้นตอนการตรวจสอบ)
+    - [Output](#output)
+  - [ข้อ 2 คำนวณหาสภาวะ Singularity](#ข้อ-2-คำนวณหาสภาวะ-singularity)
+    - [ขั้นตอนการทำงาน](#ขั้นตอนการทำงาน-1)
+    - [ขั้นตอนการตรวจสอบ](#ขั้นตอนการตรวจสอบ-1)
+    - [Output](#output-1)
+  - [ข้อ 3 คำนวณหา Effort ของแต่ละข้อต่อ](#ข้อ-3-คำนวณหา-effort-ของแต่ละข้อต่อ)
+    - [ขั้นตอนการทำงาน](#ขั้นตอนการทำงาน-2)
+    - [ขั้นตอนการตรวจสอบ](#ขั้นตอนการตรวจสอบ-2)
+    - [Output](#output-2)
+
+## การติดตั้ง
+ก่อนที่จะเรียกใช้งานได้นั้นเราต้องติดตััง Libary ของ [Robotics Toolbox for Python](https://github.com/petercorke/robotics-toolbox-python) เนื่องจากเราใช้ในการตรวจคำตอบของ Func ที่เราทำขึ้่นมา
+
+
+การติดตั้งจะมี Recommend ดังนี้
+```Recommend
+Python >= 3.6
+numpy <2
+และลง visual studio c++ compiler
+```
+เมื่อเรามีครบทั้งหมดแล้วเราสามารถลง Robotics Toolbox for python ได้ตามคำสั่งนี้
+```bash
+pip3 install roboticstoolbox-python
+```
+
+## การเรียกใช้งาน 
+### ขั้นตอนการเรียกใช้งาน
+
+เราต้อง Clone repository [FRA333_HW3_6504_6527](https://github.com/ThepokKung/FRA333_HW3_6504_6527) โดยการใช้คำสั่ง
+```bash
+git clone https://github.com/ThepokKung/FRA333_HW3_6504_6527
+```
+หรือสามารถโหลดจาก Website ได้เลยดังรูป
+
+![แสดงการเรียกใช้งาน-1](Image\2-1.png)
+
+
+## ข้อ 1 คำนวณ Jacobian
+### ขั้นตอนการทำงาน
 ฟังก์ชันนี้จะคำนวณเมทริกซ์ Jacobian ที่ตำแหน่ง end-effector โดยมีการรับค่ามุมแต่ละข้อต่อ `q`
 
 **Function**
@@ -59,7 +111,7 @@
     [ 0.       1.       1.     ]
     [ 1.       0.       0.     ]]
     ```
-## ขั้นตอนการตรวจสอบ
+### ขั้นตอนการตรวจสอบ
 สร้าง Robot RRR โดยใช้ Modify DH-Parameter ของ roboticstoolbox
 ```
 robot = rtb.DHRobot(
@@ -87,8 +139,10 @@ Jacobian :
  [ 1.       0.       0.     ]]
 ```
 ผลการเปรียบเทียบ คือ ได้ผลลัพธ์ที่ตรงกัน
-# ข้อ 2 คำนวณหาสภาวะ Singularity
-## ขั้นตอนการทำงาน
+
+
+## ข้อ 2 คำนวณหาสภาวะ Singularity
+### ขั้นตอนการทำงาน
 ฟังก์ชันนี้จะนำเมทริกซ์ Jacobian ที่ตำแหน่ง end-effector มาหาสภาวะ Singularity โดยมีการรับค่ามุมแต่ละข้อต่อ `q`
 
 **Function**
@@ -129,7 +183,7 @@ Jacobian :
     ```
     False
     ```
-## ขั้นตอนการตรวจสอบ
+### ขั้นตอนการตรวจสอบ
 นำ Robot RRR ที่สร้างในข้อ 1 มาคำนวณ Jacobian แบบลดรูป
 ```
 J_sol_redece = robot.jacob0(q)[:3,:3]
@@ -152,8 +206,10 @@ else:
 Singularity flag = False
 ```
 ผลการเปรียบเทียบ คือ ได้ผลลัพธ์ที่ตรงกัน
-# ข้อ 3 คำนวณหา Effort ของแต่ละข้อต่อ
-## ขั้นตอนการทำงาน
+
+
+## ข้อ 3 คำนวณหา Effort ของแต่ละข้อต่อ
+### ขั้นตอนการทำงาน
 ฟังก์ชันนี้จะนำเมทริกซ์ Jacobian ที่ตำแหน่ง end-effector และแรงที่สามารถอ่านค่าแรงได้จาก Sensor มาคำนวณหา Effort ของแต่ละข้อต่อ
 
 โดยมีการรับค่ามุมแต่ละข้อต่อ `q` กับเวกเตอร์ที่ประกอบด้วยแรงและโมเมนต์ `w`
@@ -199,7 +255,7 @@ Singularity flag = False
     [3.48371]]
     ```
     
-## ขั้นตอนการตรวจสอบ
+### ขั้นตอนการตรวจสอบ
 นำ Robot RRR ที่สร้างในข้อ 1 มาคำนวณ Jacobian
 ```
 J_sol = robot.jacob0(q)
