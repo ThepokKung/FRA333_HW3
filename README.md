@@ -2,7 +2,7 @@
 
 โปรเจคนี้จัดทำเพื่อประยุกต์ใช้ องค์ความรู้เกี่ยวกับการหาจลนศาสตร์เชิงอนุพันธ์ (Differential kinematics) ของหุ่นยนต์แขนกล 3 แกน (3-DOF Manipulator)
 
-![Robot](Image\pic1.png)
+![](Image\pic1.png)
 
 
 ## Table of Contents (TOC)
@@ -51,7 +51,7 @@ git clone https://github.com/ThepokKung/FRA333_HW3_6504_6527
 ```
 หรือสามารถโหลดจาก Website ได้เลยดังรูป
 
-![image](Image\2-1.png)
+![](Image\2-1.png)
 
 ### ขึ้นตอนการเรียกใช้ Function
 โดยวิธีการใช้งานเราสามารถ Import ไฟล์เราไปใช้ได้เลยเหมือนใช้ Libary แต่ต้องลากไปยัง Folder รวมกับไฟล์ที่จะเรียกใช้งาน โดยเมื่ออยู่ที่ Foler เดี่ยวกันแล้วสามารถเรียกใช้คำสั่ง
